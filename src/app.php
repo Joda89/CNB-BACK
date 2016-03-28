@@ -12,7 +12,7 @@ use App\ServicesLoader;
 use App\RoutesLoader;
 use Carbon\Carbon;
 
-date_default_timezone_set('Europe/London');
+date_default_timezone_set('Europe/Paris');
 
 define("ROOT_PATH", __DIR__ . "/..");
 
@@ -51,7 +51,7 @@ $app->register(new DoctrineServiceProvider(), array(
 $app->register(new HttpCacheServiceProvider(), array("http_cache.cache_dir" => ROOT_PATH . "/storage/cache",));
 
 $app->register(new MonologServiceProvider(), array(
-    "monolog.logfile" => ROOT_PATH . "/storage/logs/" . Carbon::now('Europe/London')->format("Y-m-d") . ".log",
+    "monolog.logfile" => ROOT_PATH . "/storage/logs/" . Carbon::now('Europe/Paris')->format("Y-m-d") . ".log",
     "monolog.level" => $app["log.level"],
     "monolog.name" => "application"
 ));
