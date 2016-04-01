@@ -1,0 +1,10 @@
+RewriteEngine on
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !(api/.*)
+
+#let the php framework do the rest
+RewriteRule ^(api/.*) index.php [NC,L]
+
+#TODO manage every single route and return 404 for the others (for SEO purpose)
