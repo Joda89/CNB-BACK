@@ -2,7 +2,7 @@ RewriteEngine on
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_URI} !(api/.*)
+RewriteCond %{REQUEST_URI} !(index.php)
 
 #let the php framework do the rest
 RewriteRule ^(api/.*) index.php [NC,L]
