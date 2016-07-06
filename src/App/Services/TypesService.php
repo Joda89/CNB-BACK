@@ -3,7 +3,12 @@
 namespace App\Services;
 
 class TypesService extends BaseService
-{   
+{
+    public function getAll()
+    {
+        return $this->db->fetchAll("SELECT * FROM cour_type");
+    }
+
     public function get($idCour)
     {
         return $this->db->fetchAssoc("SELECT * FROM cour_type where id = ?", array((int) $idCour));
