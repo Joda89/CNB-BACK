@@ -4,8 +4,8 @@ $app['api.version'] = "v1";
 $app['api.endpoint'] = "/api";
 $app['db.options'] = array(
   "driver" => "pdo_mysql",
-  "user" => "userLAB",
-  "password" => "kRBJNPreArG1hlNs",
+  "user" => "cnb",
+  "password" => "bJiYlhngLGDfdxsI",
   "dbname" => "cnb",
-  "host" => "10.1.0.7",
+  "host" => "mysql-cnb",
 );
