@@ -68,4 +68,9 @@ class UsersController
     {
         return json_decode($request->request->get("user"),true);
     }
+    
+    public function getPathAuthRequired()
+    {
+        return array("path" => "/users","method" => "GET");
+    }
 }

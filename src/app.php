@@ -5,6 +5,8 @@ use Silex\Provider\HttpCacheServiceProvider;
 use Silex\Provider\DoctrineServiceProvider;
 use Silex\Provider\MonologServiceProvider;
 use Silex\Provider\ServiceControllerServiceProvider;
+use Silex\Provider\SecurityServiceProvider;
+use Silex\Provider\SecurityJWTServiceProvider;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;

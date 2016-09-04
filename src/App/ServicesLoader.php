@@ -55,6 +55,10 @@ class ServicesLoader
            return new Services\StatutsService($this->app["db"]); 
         });
         
+        $this->app['login.service'] = $this->app->share(function () {
+           return new Services\LoginService($this->app["db"]); 
+        });
+        
     }
 }
 
