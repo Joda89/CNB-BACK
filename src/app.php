@@ -5,8 +5,6 @@ use Silex\Provider\HttpCacheServiceProvider;
 use Silex\Provider\DoctrineServiceProvider;
 use Silex\Provider\MonologServiceProvider;
 use Silex\Provider\ServiceControllerServiceProvider;
-use Silex\Provider\SecurityServiceProvider;
-use Silex\Provider\SecurityJWTServiceProvider;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -59,17 +57,27 @@ $app->register(new MonologServiceProvider(), array(
 ));
 
 //load services
-$servicesLoader = new App\ServicesLoader($app);
+$servicesLoader = new ServicesLoader($app);
 $servicesLoader->bindServicesIntoContainer();
 
 //load routes
-$routesLoader = new App\RoutesLoader($app);
+$routesLoader = new RoutesLoader($app);
 $routesLoader->bindRoutesToControllers();
 
 $app->error(function (\Exception $e, $code) use ($app) {
     $app['monolog']->addError($e->getMessage());
     $app['monolog']->addError($e->getTraceAsString());
-    return new JsonResponse(array("statusCode" => $code, "message" => $e->getMessage(), "stacktrace" => $e->getTraceAsString()));
+    
+    $retour = array();
+    $retour["statusCode"] = $code ;
+    
+    
+    
+    if ($app['debug']) {
+        $retour["message"] = $e->getMessage();
+        $retour["stacktrace"] = $e->getTraceAsString();
+    }
+    return new JsonResponse($retour);
 });
 
 return $app;

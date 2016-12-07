@@ -73,4 +73,13 @@ class UsersController
     {
         return array("path" => "/users","method" => "GET");
     }
+    
+    public function setRoute($controllers)
+    {
+        $controllers->get('/users', "users.controller:getAll");
+        $controllers->get('/user/{id}', "users.controller:get");
+        $controllers->post('/user', "users.controller:save");
+        $controllers->put('/user/{id}', "users.controller:update");
+        $controllers->delete('/user/{id}', "users.controller:delete");
+    }
 }
