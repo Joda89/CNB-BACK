@@ -53,7 +53,7 @@ class Installer {
         require __DIR__ . '/../resources/config/prod.php';
         
         
-        $this->importSqlFile($app['db.options']['host'], $app['db.options']['user'], $app['db.options']['password'], $app['db.options']['dbname'], __DIR__ . '/../resources/sql/full/cnb.sql') ;
+        Installer::importSqlFile($app['db.options']['host'], $app['db.options']['user'], $app['db.options']['password'], $app['db.options']['dbname'], __DIR__ . '/../resources/sql/full/cnb.sql') ;
     }
     
     
