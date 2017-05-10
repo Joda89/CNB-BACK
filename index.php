@@ -7,14 +7,9 @@ require_once __DIR__ . '/vendor/autoload.php';
 $app = new Silex\Application();
 
 
-require __DIR__ . '/resources/config/prod.php';
-
-$ip = $app['db.options']['host'] ;
-
-exec("ping -c 1 $ip", $output, $status);
-
-if($status != 0)
-{
+if(getenv("ENV") == 'prod') {
+    require __DIR__ . '/resources/config/prod.php';
+} else {
     require __DIR__ . '/resources/config/dev.php';
 }
 
