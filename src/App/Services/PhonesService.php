@@ -6,7 +6,7 @@ class PhonesService extends BaseService
 {   
         public function get($idUser)
     {
-        return $this->db->fetchAssoc("SELECT * FROM user_phone where user = ?", array((int) $idUser));
+        return $this->db->fetchAll("SELECT * FROM user_phone where user = ?", array((int) $idUser));
     }
 
     function save($user_phone)

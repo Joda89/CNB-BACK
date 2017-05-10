@@ -14,13 +14,13 @@ use Symfony\Component\HttpFoundation\Response;
 class CoursTypeController
 {
 
-    protected $typesService;
+    protected $courstypeService;
     protected $horairesService;
     protected $coursService;
 
-    public function __construct($typesService,$horairesService,$coursService)
+    public function __construct($courstypeService,$horairesService,$coursService)
     {
-        $this->typesService = $typesService;
+        $this->courstypeService = $courstypeService;
         $this->horairesService = $horairesService;
         $this->coursService = $coursService;
     }
@@ -34,7 +34,7 @@ class CoursTypeController
         */
 
         //récupération du tableau, il manque des éléments
-        $courType = $this->typesService->getAll();
+        $courType = $this->courstypeService->getAll();
 
         //Parcours avec ajout des attributs manquants.
         foreach ($courType as $key => $value){
@@ -48,7 +48,7 @@ class CoursTypeController
     public function get($id)
     {
         //Même schema que getAll(), mais avec un seul objet et non un tableau
-        $courType = $this->typesService->get($id);
+        $courType = $this->courstypeService->get($id);
 
         $courType['horaires'] = $this->horairesService->get($id);
         $courType['horaires']['cour'] = $this->coursService->getByCoursHoraire($courType['horaire']["id"]);
@@ -59,23 +59,37 @@ class CoursTypeController
     public function save(Request $request)
     {
         $courType = $this->getDataFromRequest($request);
-        return new JsonResponse(array("id" => $this->typesService->save($courType)));
+        return new JsonResponse(array("id" => $this->courstypeService->save($courType)));
     }
 
     public function update($id, Request $request)
     {
         $courType = $this->getDataFromRequest($request);
-        $this->typesService->update($id, $courType);
+        $this->courstypeService->update($id, $courType);
         return new JsonResponse($courType);
     }
 
     public function delete($id)
     {
-        return new JsonResponse($this->typesService->delete($id));
+        return new JsonResponse($this->courstypeService->delete($id));
     }
 
     public function getDataFromRequest(Request $request)
     {
         return json_decode($request->request->get("cour_type"),true);
+    }
+    
+            public function getPathAuthRequired()
+    {
+        //return array("path" => "/users","method" => "GET");
+    }
+    
+    public function setRoute($controllers)
+    {
+        $controllers->get('/cours_type', "courstype.controller:getAll");
+        $controllers->get('/cour_type/{id}', "courstype.controller:get");
+        $controllers->post('/cour_type', "courstype.controller:save");
+        $controllers->put('/cour_type/{id}', "courstype.controller:update");
+        $controllers->delete('/cour_type/{id}', "courstype.controller:delete");
     }
 }

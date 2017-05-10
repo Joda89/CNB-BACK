@@ -31,16 +31,16 @@ class ServicesLoader
             return new Services\MailsService($this->app["db"]);
         });
         
-        $this->app['users.service'] = $this->app->share(function () {
-            return new Services\UsersService($this->app["db"]);
+        $this->app['cours.service'] = $this->app->share(function () {
+            return new Services\CoursService($this->app["db"]);
         });
         
         $this->app['horaires.service'] = $this->app->share(function () {
             return new Services\HorairesService($this->app["db"]);
         });
         
-        $this->app['type.service'] = $this->app->share(function () {
-           return new Services\TypesService($this->app["db"]); 
+        $this->app['courstype.service'] = $this->app->share(function () {
+           return new Services\CoursTypeService($this->app["db"]); 
         });
         
         $this->app['lignes.service'] = $this->app->share(function () {
@@ -57,6 +57,10 @@ class ServicesLoader
         
         $this->app['login.service'] = $this->app->share(function () {
            return new Services\LoginService($this->app["db"]); 
+        });
+        
+        $this->app['sms.service'] = $this->app->share(function () {
+           return new Services\SMSService(); 
         });
         
     }

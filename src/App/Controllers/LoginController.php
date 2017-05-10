@@ -63,6 +63,8 @@ class LoginController implements ControllerProviderInterface
     }
     private function isAuthRequiredForPath($path,$method)
     {   
+        $retour = false ;
+
         foreach ($this->pathAuthRequired as $key => $item)
         {
             if(in_array($path, [$this->baseRoute . $item['path']]))

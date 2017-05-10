@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-class TypesService extends BaseService
+class CoursTypeService extends BaseService
 {
     public function getAll()
     {

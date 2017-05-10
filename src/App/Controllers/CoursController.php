@@ -26,14 +26,16 @@ class CoursController
         //puis cour_horaire
         //puis cours
         
-        return new JsonResponse(null);
+        $cours = $this->coursService->getAll();
+        
+        return new JsonResponse($cours);
     }
     
     public function get($id)
     {
         
         //idem
-        return new JsonResponse($user);
+        return new JsonResponse(null);
     }
 
     public function save(Request $request)
@@ -62,6 +64,20 @@ class CoursController
 
     public function getDataFromRequest(Request $request)
     {
-        return json_decode($request->request->get("user"),true);
+        return json_decode($request->request->get("cour"),true);
+    }
+    
+        public function getPathAuthRequired()
+    {
+        //return array("path" => "/users","method" => "GET");
+    }
+    
+    public function setRoute($controllers)
+    {
+        $controllers->get('/cours', "cours.controller:getAll");
+        $controllers->get('/cour/{id}', "cours.controller:get");
+        $controllers->post('/cour', "cours.controller:save");
+        $controllers->put('/cour/{id}', "cours.controller:update");
+        $controllers->delete('/cour/{id}', "cours.controller:delete");
     }
 }

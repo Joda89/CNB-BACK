@@ -12,12 +12,14 @@ class UsersController
     protected $usersService;
     protected $adressesService;
     protected $phonesService;
+    protected $mailsService;
 
-    public function __construct($usersService,$adressesService,$phonesService)
+    public function __construct($usersService,$adressesService,$phonesService,$mailsService)
     {
         $this->usersService = $usersService;
         $this->adressesService = $adressesService;
         $this->phonesService = $phonesService;
+        $this->mailsService = $mailsService;
     }
 
     public function getAll()
@@ -27,6 +29,7 @@ class UsersController
         foreach ($users as $key => $value){
             $users[$key]['adresses'] = $this->adressesService->get($value['id']);
             $users[$key]['phones'] = $this->phonesService->get($value['id']);
+            $users[$key]['mails'] = $this->mailsService->get($value['id']);
         }
         return new JsonResponse($users);
     }
@@ -71,7 +74,7 @@ class UsersController
     
     public function getPathAuthRequired()
     {
-        return array("path" => "/users","method" => "GET");
+        //return array("path" => "/users","method" => "GET");
     }
     
     public function setRoute($controllers)
