@@ -11,7 +11,7 @@
  Target Server Version : 50542
  File Encoding         : utf-8
 
- Date: 05/10/2017 16:37:21 PM
+ Date: 05/10/2017 16:48:50 PM
 */
 
 SET NAMES utf8mb4;
@@ -122,9 +122,9 @@ CREATE TABLE `user` (
   `dateDeNaissance` date NOT NULL,
   `statut` int(8) NOT NULL,
   `dateDeCretificatMedical` date NOT NULL,
-  `dateDeCreation` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `dateDeCreation` timestamp NULL DEFAULT NULL,
   `dateDeModification` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`,`dateDeModification`),
+  PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   KEY `statut` (`statut`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
