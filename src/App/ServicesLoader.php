@@ -60,7 +60,7 @@ class ServicesLoader
         });
         
         $this->app['sms.service'] = $this->app->share(function () {
-           return new Services\SMSService(); 
+           return new Services\SMSService(null); 
         });
         
     }
