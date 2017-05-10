@@ -23,7 +23,11 @@ class Installer {
         require __DIR__ . '/../resources/config/prod.php';
         
         $mysql = new mysqli($app['db.options']['host'], $app['db.options']['user'], $app['db.options']['password'], $app['db.options']['dbname']);
-        if($mysql->connect_errno) {
+        
+        $sql = "SHOW TABLES FROM " .$app['db.options']['dbname'];
+        $result = $mysql->query($sql);
+        
+        if($result->num_rows == 0) {
             $sqlSource = file_get_contents(__DIR__ . '/../resources/sql/full/cnb.sql');
             $mysql->multi_query($sqlSource);
         }
