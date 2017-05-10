@@ -22,10 +22,10 @@ class Installer {
         $app = array();
         require __DIR__ . '/../resources/config/prod.php';
         
-        $mysql = mysql_connect($app['db.options']['host'], $app['db.options']['user'], $app['db.options']['password']);
-        if(!mysql_select_db($app['db.options']['dbname'])) {
+        $mysql = new mysqli($app['db.options']['host'], $app['db.options']['user'], $app['db.options']['password'], $app['db.options']['dbname']);
+        if($mysql->connect_errno) {
             $sqlSource = file_get_contents(__DIR__ . '/../resources/sql/full/cnb.sql');
-            mysqli_multi_query($mysql,$sqlSource);
+            $mysql->multi_query($sqlSource);
         }
     }
     
