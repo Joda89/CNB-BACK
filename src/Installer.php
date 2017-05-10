@@ -24,12 +24,19 @@ class Installer {
         
         $mysql = new mysqli($app['db.options']['host'], $app['db.options']['user'], $app['db.options']['password'], $app['db.options']['dbname']);
         
+        if ($mysql->connect_errno) {
+            printf("Échec de la connexion : %s\n", $mysql->connect_error);
+            exit();
+        }
+        
         $sql = "SHOW TABLES FROM " .$app['db.options']['dbname'];
         $result = $mysql->query($sql);
         
         if($result->num_rows == 0) {
             $sqlSource = file_get_contents(__DIR__ . '/../resources/sql/full/cnb.sql');
-            $mysql->multi_query($sqlSource);
+            if($mysql->multi_query($sqlSource)) {
+                printf("full OK");
+            }
         }
     }
     
