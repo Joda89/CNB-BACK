@@ -18,7 +18,7 @@ class SmsController
 
     public function getSmsHistorique()
     {
-        
+        //TODO
         $config['applicationKey'] = "7PtZyBzudI6Rsiqv";
         $config['applicationSecret'] = "OuPxf53Nc1mDVBGH8DR0jmCl33yLksbI";
         $config['consumerKey'] = "bAcNaQOSiUd3QtP7ObV2vgyn9VD2SGm3";
