@@ -5,7 +5,7 @@ $app['api.endpoint'] = "/api";
 $app['db.options'] = array(
   "driver" => "pdo_mysql",
   "user" => "cnb",
-  "password" => "0rfi8fxlgMaGsruV",
+  "password" => "N0iwKY8qBRH8bVVF",
   "dbname" => "cnb",
-  "host" => "mysql-cnb",
+  "host" => "cnb-mysql",
 );
