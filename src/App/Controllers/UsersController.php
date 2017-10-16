@@ -45,11 +45,37 @@ class UsersController
 
     public function save(Request $request)
     {
-
-
-        $user = $this->getDataFromRequest($request);
-        return new JsonResponse(array("id" => $this->usersService->save($user)));
-
+        // retrait de l'adresse pour enregistrement separé
+        $userAdresses = $user['adresses'];
+        unset($user['adresses']);
+        
+        // retrait de telephone pour enregistrement separé
+        $userPhones = $user['phones'];
+        unset($user['phones']);
+        
+        // retrait du mail pour enregistrement separé
+        $userMail = $user['mail'];
+        unset($user['mail']);
+        
+        // enregistrement de l'user seul
+        $userId = new JsonResponse(array(
+            "id" => $this->usersService->save($user)
+        ));
+        
+        // enregistrement de son adresse
+        $userAdresses['id'] = $userId;
+        $this->adressesServices->save($userAdresses);
+        
+        // enregistrement de son telephone
+        $userPhones['id'] = $userId;
+        $this->phonesServices->save($userPhones);
+        
+        // enregistrement de son mail
+        $userMail['id'] = $userId;
+        $this->mailsServices->save($userMail);
+        
+        // renvoi de l'id de l'user
+        return userId;
     }
 
     public function update($id, Request $request)
