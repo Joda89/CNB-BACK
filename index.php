@@ -16,4 +16,3 @@ require __DIR__ . '/src/App.php';
 
 $app['http_cache']->run();
 
-?>

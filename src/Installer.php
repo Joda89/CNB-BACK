@@ -36,7 +36,8 @@ class Installer {
         $mysqli->query("SET NAMES 'utf8'");	
 	$templine = '';	// Temporary variable, used to store current query
 	foreach ($allLines as $line)	{											// Loop through each line
-		if (substr($line, 0, 2) != '--' && $line != '') {$templine .= $line; 	// (if it is not a comment..) Add this line to the current segment
+		if (substr($line, 0, 2) != '--' && $line != '') {
+                    $templine .= $line; 	// (if it is not a comment..) Add this line to the current segment
 			if (substr(trim($line), -1, 1) == ';') {		// If it has a semicolon at the end, it's the end of the query
 				if(!$mysqli->query($templine)){ 
                                     print('Error performing query \'<strong>' . $templine . '\': ' . $mysqli->error . '<br /><br />');  

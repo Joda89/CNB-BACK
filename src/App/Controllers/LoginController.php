@@ -20,6 +20,7 @@ class LoginController implements ControllerProviderInterface
     {
         $this->connect($app);
         $this->app = $app;
+        $this->addPathRequired(array("path" => self::VALIDATE_CREDENTIALS,"method" => "GET"));
     }
     
     public function setBaseRoute($baseRoute)

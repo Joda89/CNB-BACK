@@ -69,7 +69,7 @@ class UsersController
 
     public function getDataFromRequest(Request $request)
     {
-        return json_decode($request->request->get("user"),true);
+        return json_decode($request->get("user"),true);
     }
     
     public function getPathAuthRequired()
