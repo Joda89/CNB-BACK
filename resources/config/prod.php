@@ -7,5 +7,5 @@ $app['db.options'] = array(
   "user" => "cnb",
   "password" => "N0iwKY8qBRH8bVVF",
   "dbname" => "cnb",
-  "host" => "mysql",
+  "host" => "mariadb",
 );
