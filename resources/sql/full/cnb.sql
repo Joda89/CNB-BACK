@@ -183,8 +183,8 @@ CREATE TABLE `user_phone` (
 
 CREATE TABLE config(
   id int PRIMARY KEY AUTO_INCREMENT not null,
-  key varchar(255) NOT null,
-  value varchar(255) null
+  c_key varchar(255) NOT null,
+  c_value varchar(255) null
 );
 
 
