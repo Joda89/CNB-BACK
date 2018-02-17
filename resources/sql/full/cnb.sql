@@ -181,7 +181,7 @@ CREATE TABLE `user_phone` (
 --  Table structure for `ws_configuration`
 -- ----------------------------
 
-CREATE TABLE ws_configuration(
+CREATE TABLE config(
   id int PRIMARY KEY AUTO_INCREMENT not null,
   key_config varchar(255) NOT null,
   value_config varchar(255) null
