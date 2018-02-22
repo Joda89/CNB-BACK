@@ -52,9 +52,9 @@ class ServicesLoader
         });
         
         $this->app['statuts.service'] = $this->app->share(function () {
-           return new Services\StatutsService($this->app["db"]); 
+           return new Services\StatutsService($this->app["db"]);
         });
-        
+
         $this->app['login.service'] = $this->app->share(function () {
            return new Services\LoginService($this->app["db"]); 
         });
@@ -62,7 +62,11 @@ class ServicesLoader
         $this->app['sms.service'] = $this->app->share(function () {
            return new Services\SMSService(null); 
         });
-        
+
+        $this->app['config.service'] = $this->app->share(function () {
+            return new Services\ConfigService($this->app["db"]);
+        });
+
     }
 }
 

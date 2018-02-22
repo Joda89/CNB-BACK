@@ -177,4 +177,15 @@ CREATE TABLE `user_phone` (
   CONSTRAINT `user_phone` FOREIGN KEY (`user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
+-- ----------------------------
+--  Table structure for `ws_configuration`
+-- ----------------------------
+
+CREATE TABLE config(
+  id int PRIMARY KEY AUTO_INCREMENT not null,
+  c_key varchar(255) NOT null,
+  c_value varchar(255) null
+);
+
+
 SET FOREIGN_KEY_CHECKS = 1;
