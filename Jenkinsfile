@@ -29,7 +29,6 @@ volumes: [
     stage('Create Docker images') {
       container('docker') {
           sh """
-            docker login ${DOCKER_REGISTRY}
             docker build -t cnb/back:${gitCommit} .
             docker push cnb/back:${gitCommit}
             """
