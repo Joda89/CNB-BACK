@@ -1,7 +1,7 @@
 def label = "worker-${UUID.randomUUID().toString()}"
 
 podTemplate(label: label, containers: [
-  containerTemplate(name: 'php', image: 'php:7', command: 'cat', ttyEnabled: true),
+  containerTemplate(name: 'composer', image: 'composer', command: 'cat', ttyEnabled: true),
   containerTemplate(name: 'docker', image: 'docker', command: 'cat', ttyEnabled: true),
   containerTemplate(name: 'kubectl', image: 'lachlanevenson/k8s-kubectl:v1.8.8', command: 'cat', ttyEnabled: true)
 ],
@@ -17,7 +17,7 @@ volumes: [
     
     stage('build') {
       try {
-        container('php') {
+        container('composer') {
           sh "composer install"
         }
       }
