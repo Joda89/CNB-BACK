@@ -4,4 +4,4 @@ COPY . /var/www/html/
 
 RUN a2enmod rewrite
 
-chmod -R 777 /var/www/html/storage
+RUN chmod -R 777 /var/www/html/storage
