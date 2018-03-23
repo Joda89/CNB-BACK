@@ -29,7 +29,7 @@ class CoursService extends BaseService
 
     function update($id, $cour)
     {
-        return $this->db->update('cour', $cour, ['id' => $id]);
+        return $this->db->update('cour', $cour, array('id' => $id));
     }
 
     function delete($id)

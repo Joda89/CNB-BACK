@@ -40,8 +40,6 @@ class CoursController
 
     public function save(Request $request)
     {
-
-
         $user = $this->getDataFromRequest($request);
         return new JsonResponse(array("id" => $this->usersService->save($user)));
 

@@ -2,8 +2,6 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-
-
 $app = new Silex\Application();
 
 if(getenv("ENVIRONNEMENT") == 'prod') {

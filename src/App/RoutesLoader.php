@@ -17,6 +17,10 @@ class RoutesLoader
 
     private function instantiateControllers()
     {
+        $this->app['transaction.controller'] = $this->app->share(function () {
+            return new Controllers\TransactionController($this->app);
+        });
+        
         $this->app['login.controller'] = $this->app->share(function () {
             return new Controllers\LoginController($this->app);
         });
@@ -36,13 +40,22 @@ class RoutesLoader
         $this->app['sms.controller'] = $this->app->share(function () {
             return new Controllers\SmsController($this->app['sms.service']);
         });
+        
+        $this->app['update.controller'] = $this->app->share(function () {
+            return new Controllers\UpdateController($this->app['update.service']);
+        });
     }
 
     public function bindRoutesToControllers()
     {
         $api = $this->app['controllers_factory'];
+        
+        //transaction
+        $this->app['transaction.controller'];
+        
         //Login
         $this->app['login.controller']->setRoute($api);
+        
         
         //Users
         $this->app['users.controller']->setRoute($api);
@@ -61,10 +74,15 @@ class RoutesLoader
         $this->app['sms.controller']->setRoute($api);
         $this->app['login.controller']->addPathRequired( $this->app['sms.controller']->getPathAuthRequired());
         
+        //Update
+        $this->app['update.controller']->setRoute($api);
+        $this->app['login.controller']->addPathRequired( $this->app['update.controller']->getPathAuthRequired());
+        
         
 
         $this->app['login.controller']->setBaseRoute($this->app["api.endpoint"].'/'.$this->app["api.version"]);
         $this->app->mount($this->app["api.endpoint"].'/'.$this->app["api.version"], $api);
+        
     }
 }
 

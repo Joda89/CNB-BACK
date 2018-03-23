@@ -79,7 +79,7 @@ class CoursTypeController
         return json_decode($request->request->get("cour_type"),true);
     }
     
-            public function getPathAuthRequired()
+    public function getPathAuthRequired()
     {
         //return array("path" => "/users","method" => "GET");
     }

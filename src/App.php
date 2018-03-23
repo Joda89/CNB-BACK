@@ -65,6 +65,7 @@ $routesLoader = new RoutesLoader($app);
 $routesLoader->bindRoutesToControllers();
 
 $app->error(function (\Exception $e, $code) use ($app) {
+    $app["db"]->rollBack();
     $app['monolog']->addError($e->getMessage());
     $app['monolog']->addError($e->getTraceAsString());
     

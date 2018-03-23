@@ -45,6 +45,8 @@ class UsersController
 
     public function save(Request $request)
     {
+        $user = $this->getDataFromRequest($request);
+        
         // retrait de l'adresse pour enregistrement separé
         $userAdresses = $user['adresses'];
         unset($user['adresses']);
@@ -63,19 +65,25 @@ class UsersController
         ));
         
         // enregistrement de son adresse
-        $userAdresses['id'] = $userId;
-        $this->adressesServices->save($userAdresses);
+        if(!empty($userAdresses)) {
+            $userAdresses['id'] = $userId;
+            $this->adressesService->save($userAdresses);
+        }
         
         // enregistrement de son telephone
-        $userPhones['id'] = $userId;
-        $this->phonesServices->save($userPhones);
+        if(!empty($userPhones)) {
+            $userPhones['id'] = $userId;
+            $this->phonesService->save($userPhones);
+        }
         
         // enregistrement de son mail
-        $userMail['id'] = $userId;
-        $this->mailsServices->save($userMail);
+        if(!empty($userMail)) {
+            $userMail['id'] = $userId;
+            $this->mailsService->save($userMail);
+        }
         
         // renvoi de l'id de l'user
-        return userId;
+        return $userId;
     }
 
     public function update($id, Request $request)
@@ -88,9 +96,7 @@ class UsersController
 
     public function delete($id)
     {
-
         return new JsonResponse($this->usersService->delete($id));
-
     }
 
     public function getDataFromRequest(Request $request)

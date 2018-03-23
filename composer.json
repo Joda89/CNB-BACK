@@ -25,11 +25,7 @@
 	},
 	"autoload": {
 		"psr-0": {
-			"App": "src/",
-                        "Installer":"src/"
+			"App": "src/"
 		}
-	},
-        "scripts": {
-                "post-install-cmd": "Installer::postInstall"
-        }
+	}
 }

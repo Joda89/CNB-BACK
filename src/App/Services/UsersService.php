@@ -23,7 +23,7 @@ class UsersService extends BaseService
 
     function update($id, $user)
     {
-        return $this->db->update('user', $user, ['id' => $id]);
+        return $this->db->update('user', $user, array('id' => $id));
     }
 
     function delete($id)

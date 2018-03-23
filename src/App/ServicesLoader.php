@@ -63,6 +63,10 @@ class ServicesLoader
            return new Services\SMSService(null); 
         });
         
+        $this->app['update.service'] = $this->app->share(function () {
+           return new Services\UpdateService($this->app["db"]); 
+        });
+        
     }
 }
 
