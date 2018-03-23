@@ -28,8 +28,5 @@
 			"App": "src/",
                         "Installer":"src/"
 		}
-	},
-        "scripts": {
-                "post-install-cmd": "Installer::postInstall"
-        }
+	}
 }
