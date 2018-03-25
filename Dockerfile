@@ -1,6 +1,6 @@
 FROM php:7.0-apache
 
-RUN apt-get update && apt-get install -y php7.0-mysql && rm -rf /var/lib/apt/lists/*
+RUN /usr/local/bin/docker-php-ext-install mysqli pdo pdo_mysql zip xmlwriter
 
 RUN a2enmod rewrite
 
