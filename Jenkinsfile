@@ -12,8 +12,8 @@ volumes: [
     def myRepo = checkout scm
     def gitCommit = myRepo.GIT_COMMIT
     def gitBranch = myRepo.GIT_BRANCH
-    echo "${env.JOB_NAME}"
-    def namespace = sh( script: " echo '${env.JOB_NAME}' ",returnStdout: true)
+    def namespace = sh " echo ${env.JOB_NAME} | | sed -e \"s/(.*)-/$1\L/g\" "
+    echo "${namespace}"
     stage('build') {
       try {
         container('composer') {
