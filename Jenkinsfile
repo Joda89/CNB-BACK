@@ -12,7 +12,7 @@ volumes: [
     def myRepo = checkout scm
     def gitCommit = myRepo.GIT_COMMIT
     def gitBranch = myRepo.GIT_BRANCH
-    def namespace = sh (script: "echo \"\${env.JOB_NAME}\" | sed -e \"s/(.*)-/\$1\\L/g\" ",returnStdout: true).trim()
+    def namespace = sh (script: """ echo ${env.JOB_NAME} | sed -e 's/\\([^-]*\\).*/\\1/' """,returnStdout: true).trim()
     echo "${namespace}"
     stage('build') {
       try {
@@ -37,7 +37,7 @@ volumes: [
     }
     stage('Run helm') {
       container('helm') {
-	      sh "helm upgrade -i --namespace cnb --repo ${env.HELM_REPO} dev back-k8s "
+	      sh "helm upgrade -i --namespace ${namespace} --repo ${env.HELM_REPO} dev back-k8s "
       }
     }
   }
