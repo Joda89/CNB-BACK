@@ -37,7 +37,7 @@ volumes: [
     }
     stage('Run helm') {
       container('helm') {
-	      sh "helm upgrade -i --namespace ${namespace} --repo ${env.HELM_REPO} dev back-k8s "
+	      sh "helm upgrade --debug -i --namespace ${namespace} --repo ${env.HELM_REPO} dev back-k8s "
       }
     }
   }
