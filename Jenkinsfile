@@ -50,7 +50,7 @@ volumes: [
         container('helm') {
 	  sh 'helm init --client-only'
 	  sh "helm upgrade --wait -i --namespace ${namespace.toLowerCase()} --repo ${env.HELM_REPO} ${prefix} back-k8s "
-	  sh "helm history my-todo-app ${prefix}"
+	  sh "helm history ${prefix}"
 	}
       }
     }
