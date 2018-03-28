@@ -9,10 +9,25 @@ volumes: [
   hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock')
 ]) {
   node(label) {
-    def myRepo = checkout scm
-    def gitCommit = myRepo.GIT_COMMIT
-    def gitBranch = myRepo.GIT_BRANCH
-    def namespace = sh (script: """ echo ${env.JOB_NAME} | sed -e 's/\\([^-]*\\).*/\\1/' """,returnStdout: true).trim()
+    stage ('Prepare') {
+      steps {
+        def myRepo = checkout scm
+        def gitCommit = myRepo.GIT_COMMIT
+        def gitBranch = myRepo.GIT_BRANCH
+        def namespace = sh (script: """ echo ${env.JOB_NAME} | sed -e 's/\\([^-]*\\).*/\\1/' """,returnStdout: true).trim()
+	switch(gitBranch) {
+          case "develop":
+            prefix = "dev"
+          break
+          case "master":
+            prefix = "prod"
+          break
+          default:
+            prefix = ""
+          break
+        }
+      }
+    }
     stage('build') {
       try {
         container('composer') {
@@ -35,9 +50,16 @@ volumes: [
       }
     }
     stage('Deployment') {
-      container('helm') {
-	      sh 'helm init --client-only'
-	      sh "helm upgrade --wait -i --namespace ${namespace.toLowerCase()} --repo ${env.HELM_REPO} dev back-k8s "
+      when {
+        expression {
+            return (gitBranch == 'origin/master' || gitBranch == 'origin/develop')
+        }
+      }
+      steps {
+        container('helm') {
+	  sh 'helm init --client-only'
+		sh "helm upgrade --wait -i --namespace ${namespace.toLowerCase()} --repo ${env.HELM_REPO} ${prefix} back-k8s "
+	}
       }
     }
   }
