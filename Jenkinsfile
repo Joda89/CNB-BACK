@@ -37,6 +37,7 @@ volumes: [
     }
     stage('Run helm') {
       container('helm') {
+	      sh 'helm init --client-only'
 	      sh "helm upgrade --debug -i --namespace ${namespace} --repo ${env.HELM_REPO} dev back-k8s "
       }
     }
