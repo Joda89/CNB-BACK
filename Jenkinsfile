@@ -10,22 +10,20 @@ volumes: [
 ]) {
   node(label) {
     stage ('Prepare') {
-      steps {
-        def myRepo = checkout scm
-        def gitCommit = myRepo.GIT_COMMIT
-        def gitBranch = myRepo.GIT_BRANCH
-        def namespace = sh (script: """ echo ${env.JOB_NAME} | sed -e 's/\\([^-]*\\).*/\\1/' """,returnStdout: true).trim()
-	switch(gitBranch) {
-          case "develop":
-            prefix = "dev"
-          break
-          case "master":
-            prefix = "prod"
-          break
-          default:
-            prefix = ""
-          break
-        }
+      def myRepo = checkout scm
+      def gitCommit = myRepo.GIT_COMMIT
+      def gitBranch = myRepo.GIT_BRANCH
+      def namespace = sh (script: """ echo ${env.JOB_NAME} | sed -e 's/\\([^-]*\\).*/\\1/' """,returnStdout: true).trim()
+      switch(gitBranch) {
+        case "develop":
+          prefix = "dev"
+        break
+        case "master":
+          prefix = "prod"
+        break
+        default:
+          prefix = ""
+        break
       }
     }
     stage('build') {
