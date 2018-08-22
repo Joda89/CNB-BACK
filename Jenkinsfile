@@ -9,7 +9,17 @@ pipeline {
 
     stages {
         stage('build') {
-            agent { docker 'composer' }
+            agent {
+                kubernetes {
+                    cloud 'kubernetes'
+                    label 'composer'
+                    containerTemplate {
+                        name 'composer'
+                        image 'composer'
+                        ttyEnabled true
+                    }
+                }
+            }
             steps {
                 sh "composer install"
             }
