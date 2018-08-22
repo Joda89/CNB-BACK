@@ -24,35 +24,37 @@ volumes: [
         prefix = ""
       break
     }
-    stage('build') {
-      try {
-        container('composer') {
-          sh "composer install"
-        }
-      }
-      catch (exc) {
-        println "Failed to test - ${currentBuild.fullDisplayName}"
-        throw(exc)
-      }
-    }
-    stage('Create Docker images') {
-      container('docker') {
-          sh """
-	    docker build -t ${DOCKER_REGISTRY}/cnb/back:${gitCommit} .
-	    docker tag ${DOCKER_REGISTRY}/cnb/back:${gitCommit} ${DOCKER_REGISTRY}/cnb/back:${gitBranch} 
-            docker push ${DOCKER_REGISTRY}/cnb/back:${gitCommit}
-	    docker push ${DOCKER_REGISTRY}/cnb/back:${gitBranch}
-            """
-      }
-    }
-    stage('Deployment') {
-      if (prefix == "dev" || prefix == "prod") {
-        container('helm') {
-	  sh 'helm init --client-only'
-	  sh "helm upgrade --wait -i --namespace ${namespace.toLowerCase()} --repo ${env.HELM_REPO} ${prefix} back-k8s "
-	  sh "helm history ${prefix}"
-	}
-      }
+    
     }
   }
+}
+
+
+
+import org.lore.*
+
+pipeline {
+
+    options {
+        // Build auto timeout
+        timeout(time: 60, unit: 'MINUTES')
+    }
+
+    agent none
+
+    stages {
+        stage('build') {
+            agent { docker 'composer' }
+            steps {
+                sh "composer install"
+            }
+        }
+//        stage('Create Docker images') {
+//            agent { docker 'docker' }
+//                sh 'docker build -t ${env.DOCKER_REGISTRY}/cnb/back:${env.GIT_COMMIT} .'
+//                sh 'docker tag ${env.DOCKER_REGISTRY}/cnb/back:${env.GIT_COMMIT} ${DOCKER_REGISTRY}/cnb/back:${env.BRANCH_NAME} ' 
+//                sh 'docker push ${env.DOCKER_REGISTRY}/cnb/back:${env.GIT_COMMIT} '
+//                sh 'docker push ${env.DOCKER_REGISTRY}/cnb/back:${env.BRANCH_NAME} '
+//        }
+    }
 }
