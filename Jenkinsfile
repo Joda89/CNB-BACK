@@ -17,6 +17,7 @@ pipeline {
                         name 'composer'
                         image 'composer'
                         ttyEnabled true
+                        command 'cat'
                     }
                 }
             }
